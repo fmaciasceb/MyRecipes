@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _MaciasCeballos.Fernando_._MyRecipes_
+namespace My1stRecipe
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace _MaciasCeballos.Fernando_._MyRecipes_
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new frmMain());
         }
     }
 }

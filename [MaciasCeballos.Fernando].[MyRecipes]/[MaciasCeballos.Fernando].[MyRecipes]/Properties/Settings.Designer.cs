@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _MaciasCeballos.Fernando_._MyRecipes_.Properties
+namespace _MaciasCeballos.Fernando_._MyRecipes_._MaciasCeballos.Fernando_._MyRecipes_
 {
 
 

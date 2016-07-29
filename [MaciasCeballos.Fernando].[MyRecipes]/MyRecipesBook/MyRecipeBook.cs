@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Xml;
 using System.Collections;
 using System.Windows.Forms;
+using System.Net;
 
 
 //*******************************************************************************************************
@@ -22,19 +23,39 @@ namespace RecipeBook
 {
     public class RecipeBook
     {
+        private const int TimeOut = 20000; // limit 20s of loading
+
         // Structure of each node of the XML
         public class Item
         {
-
+            public string ID;
             public string Link;
             public string Tittle;
             public string Summary;
             public DateTimeOffset LastUpdate;
             public DateTimeOffset PublishDate;
+            public bool Unread;
 
-            public Item(Collection<SyndicationLink> lks, string tittle, string sum, DateTimeOffset dateUpdate, DateTimeOffset pubdate)
+
+
+            //Overload the equal operator to compare nodes
+
+            public override bool Equals(object o)
             {
+                if (o == null || o.GetType() != typeof(Item))
+                    return false;
+                Item ca = (Item)o;
+                return ca.ID.Equals(this.ID);
+            }
 
+            public override int GetHashCode()
+            {
+                return ID.GetHashCode();
+            }
+
+            public Item(string id, Collection<SyndicationLink> lks, string tittle, string sum, DateTimeOffset dateUpdate, DateTimeOffset pubdate, bool unread)
+            {
+                this.ID = id;
                 if (lks.Count > 0)
                 {
                     this.Link = lks[0].Uri.AbsoluteUri.ToString();
@@ -43,6 +64,7 @@ namespace RecipeBook
                 this.Summary = sum;
                 this.LastUpdate = dateUpdate;
                 this.PublishDate = pubdate;
+                this.Unread = unread;
             }
 
 
@@ -54,34 +76,39 @@ namespace RecipeBook
         {
             ArrayList Array = null;
             string errors = "";
-            XmlReader reader;
-
-
+          
             if (url.Trim() == "")
                 return null;
             else
             {
                 try
                 {
-                    reader = XmlReader.Create(url);
-                    SyndicationFeed feed = SyndicationFeed.Load(reader);
-                    reader.Close();
-                    Array = new ArrayList();
-                    foreach (SyndicationItem item in feed.Items)
-                    {
-                        Item it = new Item(item.Links, item.Title.Text, item.Summary.Text, item.LastUpdatedTime, item.PublishDate);
-                        Array.Add(it);
-                    }
 
+
+                    WebRequest request = WebRequest.Create(url);
+                    request.Timeout = TimeOut;
+
+                    using (WebResponse response = request.GetResponse())
+                    using (XmlReader lct = XmlReader.Create(response.GetResponseStream()))
+                    {
+                        SyndicationFeed feed = SyndicationFeed.Load(lct);
+                        lct.Close();
+                        Array = new ArrayList();
+                        foreach (SyndicationItem item in feed.Items)
+                        {
+                            Item it = new Item(item.Id, item.Links, item.Title.Text, item.Summary.Text, item.LastUpdatedTime, item.PublishDate, true);
+                            Array.Add(it);
+                        }
+                    }
                     return Array;
 
                 }
                 catch
                 {
-                    errors += "Not valid URL";
+                    errors += "Not valid URL or timeout exceeded";
                 }
                 if ((ShowErrors) && (errors != ""))
-                    MessageBox.Show(errors);
+                    MessageBox.Show(errors, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 return Array;
 
