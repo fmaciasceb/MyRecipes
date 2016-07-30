@@ -10,6 +10,7 @@ using System.Xml;
 using System.Collections;
 using System.Windows.Forms;
 using System.Net;
+using System.Data;
 
 
 //*******************************************************************************************************
@@ -70,13 +71,24 @@ namespace RecipeBook
 
         }
 
+        //Comparer to sort items by publish date
+        public class ItemComparer : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                return ((Item)x).PublishDate.CompareTo(((Item)y).PublishDate);
+            }
+
+
+        }
+
         // Public function that returns nodes in an ArrayList
 
         public ArrayList GiveMeArrayList(string url, bool ShowErrors = false)
         {
             ArrayList Array = null;
             string errors = "";
-          
+
             if (url.Trim() == "")
                 return null;
             else
@@ -115,13 +127,68 @@ namespace RecipeBook
             }
         }
 
+        public DataTable GiveMeDataTable(string url, bool ShowErrors = false)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Link");
+            dt.Columns.Add("Tittle");
+            dt.Columns.Add("LastUpdate");
+            dt.Columns.Add("PublishDate");
 
+            string errors = "";
+
+            if (url.Trim() == "")
+                return dt;
+            else
+            {
+                try
+                {
+
+                    WebRequest request = WebRequest.Create(url);
+                    request.Timeout = TimeOut;
+
+                    using (WebResponse response = request.GetResponse())
+                    using (XmlReader lct = XmlReader.Create(response.GetResponseStream()))
+                    {
+                        SyndicationFeed feed = SyndicationFeed.Load(lct);
+                        lct.Close();
+                        foreach (SyndicationItem item in feed.Items)
+                        {
+
+                            Item it = new Item(item.Id, item.Links, item.Title.Text, item.Summary.Text, item.LastUpdatedTime, item.PublishDate, true);
+
+                            DataRow row = dt.NewRow();
+                            row["ID"] = it.ID;
+                            row["Link"] = it.Link;
+                            row["Tittle"] = it.Tittle;
+                            row["LastUpdate"] = it.LastUpdate;
+                            row["PublishDate"] = it.PublishDate;
+                            dt.Rows.Add(row);
+
+                        }
+                    }
+                    return dt;
+
+                }
+                catch
+                {
+                    errors += "Not valid URL or timeout exceeded";
+                }
+                if ((ShowErrors) && (errors != ""))
+                    MessageBox.Show(errors, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return dt;
+
+
+
+            }
+
+
+        }
 
 
     }
-
-
-
 
 
 }
