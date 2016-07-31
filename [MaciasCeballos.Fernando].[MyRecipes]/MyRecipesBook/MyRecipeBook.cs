@@ -1,9 +1,4 @@
 ﻿using System;
-
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel.Syndication;
 using System.Collections.ObjectModel;
 using System.Xml;
@@ -83,7 +78,15 @@ namespace RecipeBook
         }
 
         // Public function that returns nodes in an ArrayList
+        
 
+        /// <summary>
+        /// Function that receives a rss url and returns an ArrayList of Items 
+        /// </summary>
+        /// <param name="Url">Url of RSS Feeds</param>
+        /// <param name="ShowErrors">Optional parameter.Display or not errors</param>
+        /// <remarks></remarks>
+        /// 
         public ArrayList GiveMeArrayList(string url, bool ShowErrors = false)
         {
             ArrayList Array = null;
@@ -127,6 +130,13 @@ namespace RecipeBook
             }
         }
 
+        /// <summary>
+        /// Function that receives a rss url and returns a Datatable 
+        /// </summary>
+        /// <param name="Url">Url of RSS Feeds</param>
+        /// <param name="ShowErrors">Optional parameter.Display or not errors</param>
+        /// <remarks></remarks>
+        /// 
         public DataTable GiveMeDataTable(string url, bool ShowErrors = false)
         {
             DataTable dt = new DataTable();
