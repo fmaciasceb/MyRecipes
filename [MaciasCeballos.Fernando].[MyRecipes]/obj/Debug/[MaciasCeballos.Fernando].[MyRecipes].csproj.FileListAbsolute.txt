@@ -1,0 +1,8 @@
+c:\users\rocío\documents\visual studio 2015\Projects\[MaciasCeballos.Fernando].[MyRecipes]\[MaciasCeballos.Fernando].[MyRecipes]\bin\Debug\[MaciasCeballos.Fernando].[MyRecipes].exe.config
+c:\users\rocío\documents\visual studio 2015\Projects\[MaciasCeballos.Fernando].[MyRecipes]\[MaciasCeballos.Fernando].[MyRecipes]\bin\Debug\[MaciasCeballos.Fernando].[MyRecipes].exe
+c:\users\rocío\documents\visual studio 2015\Projects\[MaciasCeballos.Fernando].[MyRecipes]\[MaciasCeballos.Fernando].[MyRecipes]\bin\Debug\[MaciasCeballos.Fernando].[MyRecipes].pdb
+c:\users\rocío\documents\visual studio 2015\Projects\[MaciasCeballos.Fernando].[MyRecipes]\[MaciasCeballos.Fernando].[MyRecipes]\obj\Debug\[MaciasCeballos.Fernando].[MyRecipes].csprojResolveAssemblyReference.cache
+c:\users\rocío\documents\visual studio 2015\Projects\[MaciasCeballos.Fernando].[MyRecipes]\[MaciasCeballos.Fernando].[MyRecipes]\obj\Debug\_MaciasCeballos.Fernando_._MyRecipes_.Properties.Resources.resources
+c:\users\rocío\documents\visual studio 2015\Projects\[MaciasCeballos.Fernando].[MyRecipes]\[MaciasCeballos.Fernando].[MyRecipes]\obj\Debug\[MaciasCeballos.Fernando].[MyRecipes].csproj.GenerateResource.Cache
+c:\users\rocío\documents\visual studio 2015\Projects\[MaciasCeballos.Fernando].[MyRecipes]\[MaciasCeballos.Fernando].[MyRecipes]\obj\Debug\[MaciasCeballos.Fernando].[MyRecipes].exe
+c:\users\rocío\documents\visual studio 2015\Projects\[MaciasCeballos.Fernando].[MyRecipes]\[MaciasCeballos.Fernando].[MyRecipes]\obj\Debug\[MaciasCeballos.Fernando].[MyRecipes].pdb
